@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% block javascript %}
+  <script>
+    $("#name").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: form.attr("ajax-url"),
+        data: form,
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            document.getElementById("p1").innerHTML = data.error_message;
+          }
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+</head>
+<body>
+<p id="p1">hello</p>
+<form method="post" ajax-url="{% url 'fruits:validate_fruit' %}">
+    {% csrf_token %}
+Name:<input type="text" placeholder="fruit name" name="name" id="name"><br><br>
+Grade:<select name="grade" id="grade">
+    <option value="">-----------</option>
+    <option value="grade1">grade1</option>
+  <option value="grade2">grade2</option>
+  <option value="grade3">grade3</option>
+    </select><br><br>
+    <button type="submit">create</button>
+</form>
+
+</body>
+</html>

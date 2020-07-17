@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<strong>LIST OF FRUITS AVAILABLE</strong><br><br>
+<ul>
+{% for fruit in fruit_list %}
+
+    <li>{{fruit}}</li>
+
+{% endfor %}
+    </ul>
+<br><br>
+<a href="{% url 'fruits:create' %}">create</a>
+</body>
+</html>
