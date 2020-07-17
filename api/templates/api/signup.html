@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'api/base.html' %}
+
+{% block javascript %}
+  <script>
+    $("#id_username").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: form.attr("data-validate-username-url"),
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            alert(data.error_message);
+            document.getElementById("p1").innerHTML = data.error_message ;
+          }
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <form method="post" data-validate-username-url="{% url 'validate_username' %}">
+    {% csrf_token %}
+      <p id="p1"></p>
+    {{ form.as_p }}
+      <p id="p2"></p>
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASSIGNING TASK</title>
+</head>
+<body>
+<h1>Hello</h1>
+{{employee.name}}<br>
+{{employee.designation}}<br>
+<strong>{{sample}}</strong>
+<form action="" method="post">
+    {% csrf_token %}
+    ASSIGN TASK TO EMPLOYEE:
+    <select name="employee">
+        {% for worker in employee_list %}
+            <option value="{{worker.id}}">{{worker}} {{worker.id}}</option>
+        {% endfor %}
+    </select><br><br>
+
+    ASSIGN TASK:
+    <select name="task">
+            {% for task in task_list %}
+                <option value="{{task.id}}">{{task}}</option>
+            {% endfor %}
+    </select><br><br>
+<button TYPE="submit">ASSIGN</button>
+</form>
+<a href="{% url 'logout' %}">LOG OUT</a>
+</body>
+</html>

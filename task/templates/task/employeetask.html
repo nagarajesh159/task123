@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EMPLOYEE'S TASK</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+$(document).ready(function () {
+  $("#changestatus").change(function () {
+    var e = document.getElementById("changestatus");
+    var value = e.options[e.selectedIndex].value;
+
+    $.ajax({
+      url: "http://127.0.0.1:8000/task/employee-task/",
+      type: "post",
+      data: value,
+      headers: { "X-CSRFToken": "{{ csrf_token }}" }, // for csrf token
+      success: function (data) {
+        alert(data.result);
+      },
+    });
+  });
+});
+</script>
+</head>
+<body>
+<form onsubmit="" method="post">
+    {% csrf_token %}
+      <table border = "1">
+         <tr>
+            <td>EMPLOYEE NAME</td>
+            <td>EMPLOYEE DESIGNATION</td>
+            <td>EMPLOYEE TASK</td>
+            <td>TASK NAME</td>
+            <td>TASK STATUS</td>
+         </tr>
+
+         <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.designation}}</td>
+            <td>{{employee.task}}</td>
+            <td>{{task.name}}</td>
+            <td id="employee-status">{{task.status}}</td>
+         </tr>
+      </table><br>
+    TASK STATUS CHANGE:
+    <select name="status" id="status">
+        <option value="Not started">Not started</option>
+        <option value="InProgress">InProgress</option>
+        <option value="Done">Done</option>
+    </select><br><br>
+<button TYPE="submit" id="changestatus">ASSIGN</button>
+
+</form>
+</body>
+</html>

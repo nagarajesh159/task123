@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create </title>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+Username : <input type="text" placeholder="Username" name="username"><br><br>
+password : <input type="password" placeholder="password" name="password"><br><br>
+Email : <input type="email" placeholder="Email" name="email"><br><br>
+Designation : <input type="text" placeholder="designation" name="designation"><br><br>
+    Task:
+    <select name="task">
+
+    {% for task in task_list %}
+    <option value={{task}}>{{task}}</option>
+        {% endfor %}
+      </select><br><br>
+
+</form>
+</body>
+</html>
